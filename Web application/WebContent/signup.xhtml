@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Inscription</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+	<f:loadBundle basename="bundle.messages" var="msg" />
+</h:head>
+<body>
+	<ui:include src="WEB-INF/header.xhtml" />
+	<div class="container">
+		<div class="row">
+			<div class="box">
+				<div class="col-xs-12">
+					<h:form>
+						<div class="row">
+							<h2>Inscription</h2>
+							<div class="form-group col-lg-4">
+								<label>Nom</label>
+								<h:inputText id="nom" styleClass="form-control" value="#{subscribeBean.user.nom}">
+									<f:ajax event="blur" render="nomMessage" />
+								</h:inputText>
+								<h:message id="nomMessage" for="nom" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Prénom</label>
+								<h:inputText id="prenom" styleClass="form-control" value="#{subscribeBean.user.prenom}">
+									<f:ajax event="blur" render="prenomMessage" />
+								</h:inputText>
+								<h:message id="prenomMessage" for="prenom" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Raison sociale</label>
+								<h:inputText id="raisonSociale" styleClass="form-control" value="#{subscribeBean.user.defaultAddress.raisonSociale}">
+									<f:ajax event="blur" render="raisonSocialeMessage" />
+								</h:inputText>
+								<h:message id="raisonSocialeMessage" for="raisonSociale" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-12">
+								<label>Voie</label>
+								<h:inputTextarea id="voie" class="form-control" rows="6" value="#{subscribeBean.user.defaultAddress.voie}">
+									<f:ajax event="blur" render="voieMessage" />
+								</h:inputTextarea>
+								<h:message id="voieMessage" for="voie" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Ville</label>
+								<h:inputText id="ville" styleClass="form-control" value="#{subscribeBean.user.defaultAddress.ville}">
+									<f:ajax event="blur" render="villeMessage" />
+								</h:inputText>
+								<h:message id="villeMessage" for="ville" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Code postal</label>
+								<h:inputText id="codePostal" styleClass="form-control" value="#{subscribeBean.user.defaultAddress.codePostal}">
+									<f:ajax event="blur" render="codePostalMessage" />
+								</h:inputText>
+								<h:message id="codePostalMessage" for="codePostal" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Email</label>
+								<h:inputText id="email" styleClass="form-control" value="#{subscribeBean.user.email}" validator="#{subscribeBean.validate}">
+									<f:ajax event="blur" render="emailMessage" />
+								</h:inputText>
+								<h:message id="emailMessage" for="email" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Mot de passe</label>
+								<h:inputSecret id="pswd" styleClass="form-control" value="#{subscribeBean.user.password}" required="true"
+									requiredMessage="#{msg['form.required']}" binding="#{passwordComp}">
+									<f:ajax event="blur" execute="pswd pswdBis" render="pswdMessage pswdBisMessage" />
+									<f:validator validatorId="passwordConstraintValidator" />
+								</h:inputSecret>
+								<h:message id="pswdMessage" for="pswd" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Vérification du mot de passe</label>
+								<h:inputSecret id="pswdBis" styleClass="form-control" value="#{subscribeBean.confirmPassword}" required="true"
+									requiredMessage="#{msg['form.required']}">
+									<f:ajax event="blur" execute="pswd pswdBis" render="pswdMessage pswdBisMessage" />
+									<f:attribute name="passwordComp" value="#{passwordComp}" />
+									<f:validator validatorId="passwordConfirmationValidator" />
+								</h:inputSecret>
+								<h:message id="pswdBisMessage" for="pswdBis" errorClass="error" />
+							</div>
+							<div class="clearfix"></div>
+							<div class="form-group col-lg-12">
+								<h:commandButton action="#{subscribeBean.subscribe}" styleClass="btn btn-default" value="Valider">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+							</div>
+						</div>
+					</h:form>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<ui:include src="WEB-INF/footer.xhtml" />
+</body>
+</html>

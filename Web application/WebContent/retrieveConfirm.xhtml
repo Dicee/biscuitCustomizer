@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Confirmation de la demande changement de mot de passe</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+	<f:loadBundle basename="bundle.messages" var="msg" />
+</h:head>
+<body>
+	<ui:include src="WEB-INF/header.xhtml" />
+	<div class="container">
+		<div class="row">
+			<div class="box">
+				<div class="col-xs-12">
+					<hr/>
+					<h2 class="intro-text text-center">Confirmation de la demande changement de mot de passe</h2>
+					<hr/>
+					<h:form>
+						<h:messages globalOnly="true" escape="false" errorClass="error" infoClass="info"/>
+						<div class="row">
+							<div class="form-group col-lg-6">
+								<label>Mail</label> 
+								<h:inputText id="email" styleClass="form-control" value="#{retrievePasswordBean.email}" required="true"
+									requiredMessage="#{msg['required']}">
+									<f:ajax event="blur" render="emailMessage" />
+								</h:inputText>
+								<h:message id="emailMessage" for="email" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-6">
+								<label>Code de confirmation</label> 
+								<h:inputText id="confirm" styleClass="form-control" value="#{retrievePasswordBean.confirmCode}" required="true"
+									requiredMessage="#{msg['form.required']}">
+									<f:ajax event="blur" render="confirmMessage" />
+								</h:inputText>
+								<h:message id="confirmMessage" for="confirm" errorClass="error" />
+							</div>
+							<div class="clearfix"></div>
+							<div class="form-group col-lg-12">
+								<h:commandButton action="#{retrievePasswordBean.confirm}" styleClass="btn btn-default" value="Confirmer"/>
+							</div>
+						</div>
+					</h:form>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<ui:include src="WEB-INF/footer.xhtml"/>
+</body>
+</html>

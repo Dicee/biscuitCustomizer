@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Mon compte</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css"/>
+	<h:outputStylesheet library="default" name="css/business-casual.css"/>
+	<h:outputStylesheet library="default" name="css/basic.css"/>
+	<f:loadBundle basename="bundle.messages" var="msg"/>
+</h:head>
+<body>
+<ui:include src="WEB-INF/header.xhtml" />
+	<div class="container">
+		<div class="row">
+			<div class="box">
+				<div class="col-xs-12">
+						<h:form>
+						<h:messages globalOnly="true" escape="false" infoClass="info"/>
+						<div class="row">
+							<h2>Mon compte</h2>
+							<div class="form-group col-lg-4">
+								<label>Nom</label>
+								<h:inputText id="nom" styleClass="form-control" value="#{sessionBean.user.nom}" disabled="true"/>
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Prénom</label>
+								<h:inputText id="prenom" styleClass="form-control" value="#{sessionBean.user.prenom}" disabled="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-4">
+								<label>Email</label>
+								<h:inputText id="email" styleClass="form-control" value="#{sessionBean.user.email}">
+								<f:validator validatorId="emailValidator"/>
+									<f:ajax event="blur" render="emailMessage" />
+								</h:inputText>
+								<h:message id="emailMessage" for="email" errorClass="error" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-4">
+								<h:commandButton action="#{accountInfoBean.changeEmail}" styleClass="btn btn-default" value="Changer mon adresse e-mail">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+							</div>
+						</div>
+						</h:form>
+						<h:form>
+						<h:messages globalOnly="true" escape="false" infoClass="info"/>
+						<div class="row">
+							<div class="form-group col-lg-4">
+								<label>Mot de passe</label>
+								<h:inputSecret id="pswd" styleClass="form-control" value="#{accountInfoBean.password}" required="true"
+									requiredMessage="#{msg['form.required']}" binding="#{passwordComp}">
+									<f:ajax event="blur" execute="pswd pswdBis" render="pswdMessage pswdBisMessage" />
+									<f:validator validatorId="passwordConstraintValidator" />
+								</h:inputSecret>
+								<h:message id="pswdMessage" for="pswd" errorClass="error" />
+							</div>
+							<div class="form-group col-lg-4">
+								<label>Vérification du mot de passe</label>
+								<h:inputSecret id="pswdBis" styleClass="form-control" value="#{accountInfoBean.confirmPassword}" required="true"
+									requiredMessage="#{msg['form.required']}">
+									<f:ajax event="blur" execute="pswd pswdBis" render="pswdMessage pswdBisMessage" />
+									<f:attribute name="passwordComp" value="#{passwordComp}" />
+									<f:validator validatorId="passwordConfirmationValidator" />
+								</h:inputSecret>
+								<h:message id="pswdBisMessage" for="pswdBis" errorClass="error" />
+							</div>
+							<div class="clearfix"></div>
+							<div class="form-group col-lg-4">
+								<h:commandButton action="#{accountInfoBean.changePassword}" styleClass="btn btn-default" value="Changer mon mot de passe">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+							</div>
+						</div>
+						</h:form>
+					</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<ui:include src="WEB-INF/footer.xhtml" />
+</body>
+</html>

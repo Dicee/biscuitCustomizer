@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Review</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/custom.css" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>	
+</h:head>
+<style>
+.hidden {
+	display: none;
+}
+</style>
+<body>
+	<ui:include src="WEB-INF/header.xhtml" />
+	
+	<div class="container">
+		<ui:repeat id="customs" var="custom" value="#{reviewBean.batch.customizations}" varStatus="status">
+			
+			<h:outputText id="x#{status.index}" value="#{custom.x}" styleClass="hidden"/>
+			<h:outputText id="y#{status.index}" value="#{custom.y}" styleClass="hidden"/>
+			<h:outputText id="size#{status.index}" value="#{custom.size}" styleClass="hidden"/>
+			<h:outputText id="mode#{status.index}" value="#{custom.mode}" styleClass="hidden"/>
+		</ui:repeat>
+	</div>
+
+	<ui:include src="WEB-INF/footer.xhtml"/>
+	
+	<script> </script>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+	<script src="js/customjs.js"></script>
+</body>
+</html>

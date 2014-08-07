@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Connexion</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+</h:head>
+<body>
+	<ui:include src="WEB-INF/header.xhtml" />
+	<div class="container">
+		<div class="row">
+			<div class="box">
+				<div class="col-xs-12">
+					<hr/>
+					<h2 class="intro-text text-center">Connexion</h2>
+					<hr/>
+					<p>Si vous n'êtes pas encore inscrit, cliquez <a href="signup.xhtml">ici</a>.</p>
+					<h:form>
+						<h:messages globalOnly="true" escape="false" errorClass="error"/>
+						<div class="row">
+							<div class="form-group col-lg-6">
+								<label>Mail</label> <h:inputText styleClass="form-control" value="#{sessionBean.login}"/>
+							</div>
+							<div class="form-group col-lg-6">
+								<label>Mot de passe</label> <h:inputSecret styleClass="form-control" value="#{sessionBean.password}"/>
+							</div>
+							<div class="clearfix"></div>
+							<div class="form-group col-lg-12">
+								<h:commandButton action="#{sessionBean.connect}" styleClass="btn btn-default" value="Connexion"/>
+							</div>
+						</div>
+					</h:form>
+					<a href="retrieve.xhtml">Mot de passe oublié ?</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<ui:include src="WEB-INF/footer.xhtml"/>
+</body>
+</html>

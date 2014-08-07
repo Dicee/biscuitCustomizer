@@ -1,0 +1,29 @@
+<ui:composition lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	 
+	<ui:param name="infoClass"    value="#{active == 'info'    ? 'active' : ''}"/>
+	<ui:param name="addressClass" value="#{active == 'address' ? 'active' : ''}"/>
+	<ui:param name="recapClass"   value="#{active == 'recap'   ? 'active' : ''}"/>
+	
+	<h:form>
+	<div class="span3">
+		<div class="col-xs-3">
+			<p class="lead text-center">Mon compte</p>
+			<div class="list-group">
+				<h:link outcome="addresses.xhtml" value="Mes adresses" styleClass="list-group-item #{addressClass}">
+					<f:param name="active" value="address"/>
+				</h:link>
+				<h:link outcome="accountInfo.xhtml" value="Mes informations" styleClass="list-group-item #{infoClass}">
+					<f:param name="active" value="info"/>
+				</h:link> 
+				<h:link outcome="orderRecap.xhtml" value="Mes commandes" styleClass="list-group-item #{recapClass}">
+					<f:param name="active" value="recap"/>
+				</h:link>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	</h:form>
+</ui:composition>

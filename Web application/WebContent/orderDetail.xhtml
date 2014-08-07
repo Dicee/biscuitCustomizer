@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Mes commandes</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/custom.css" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>	
+</h:head>
+<body onload="init()">
+	<ui:include src="WEB-INF/header.xhtml" />
+    <div class="container">
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr />
+                    <h2 class="intro-text text-center">Mes commandes</h2>
+                    <hr />
+                </div>
+                <div class="col-md-12 col-sm-12 text-left">
+                	<span>Cliquez sur le nom du produit pour en voir le détail</span>
+                	<h:form id="form">
+					<table class="table table-striped">
+						<tr>
+							<td>Produit</td>
+							<td>Quantité</td>
+							<td>Prix unitaire</td>
+							<td>Prix du lot</td>
+						</tr>
+						<ui:repeat id="batches" var="batch" value="#{orderDetailBean.order.batches}" varStatus="status">
+							<tr>
+								<td><h:outputLink value="#" onclick="window.open('review.xhtml?id=#{batch.id}');">
+										<h:outputText value="#{batch.biscuit.name}" styleClass="itemName" />
+									</h:outputLink>
+								</td>
+								<td><h:outputText id="qt" value="#{batch.qt}" styleClass="quantity"/></td>
+								<td><span class="price"><h:outputText id="price" value="#{batch.biscuit.price}"/> €</span></td>
+								<td><span class="price"><h:outputText id="total_price" value=""/> €</span></td>
+							</tr>
+						</ui:repeat>
+						<tr>
+							<td>Total hors taxes : <span class="price"><span id="total_ht"></span>€</span></td>
+							<td>TVA (20 %) : <span class="price"><span id="total_tva"></span>€</span></td>
+							<td>Total :</td>
+							<td><span class="price"><span id="total_order"></span>€</span></td>
+						</tr>
+					</table>
+					<h:commandLink action="orderRecap.xhtml" value="Revenir à la liste des commandes"/>
+					</h:form>
+				</div>
+            </div>
+        </div>
+    </div>
+	<ui:include src="WEB-INF/footer.xhtml"/>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+	<script src="js/customjs.js"></script>
+	<script type="text/javascript">
+		function init() {
+			var i  = 0;
+			while (document.getElementById('form:batches:' + i + ':price')) 
+				updateSubTotal(i++);
+			updateTotal();
+		}
+	
+		function setContent(span,node) {
+			while (span.firstChild)
+				span.removeChild(span.firstChild);
+			span.appendChild(node);
+		}
+		
+		function updateSubTotal(index) {
+			var totalPrice;
+			totalSpan     = document.getElementById('form:batches:' + index + ':total_price');
+			qtField       = document.getElementById('form:batches:' + index + ':qt');
+			qtField.value = parseInt(qtField.innerHTML);
+			console.log(qtField.value);
+			
+			try {
+				qt = parseInt(qtField.value);
+				//Weird ? Well... there was an XHTML error otherwise !
+				if (!(qt > 0)) 
+					throw "Negative quantity";
+				
+				qtField.lastValue = qt;
+				unitPrice         = parseFloat(document.getElementById('form:batches:' + index + ':price').innerHTML);
+				totalPrice        = (qt * unitPrice).toFixed(2);					
+			} catch (e) {
+				totalPrice        = parseFloat(totalSpan.lastValue).toFixed(2);
+				qtField.value     = qtField.lastValue;
+			}
+			setContent(totalSpan,document.createTextNode(totalPrice));
+			totalSpan.lastValue   = totalPrice;
+		}
+		
+		function updateTotal() {
+			//Compute the total price of the order
+			var total = 0;
+			var i     = 0;
+			var price = document.getElementById('form:batches:' + i + ':total_price');
+			while (price) {
+				total += parseFloat(price.innerHTML);
+				price  = document.getElementById('form:batches:' + (++i) + ':total_price');
+			}
+			total = total.toFixed(2);
+			ht    = (total / 1.2).toFixed(2);
+			taxes = (total - ht).toFixed(2);
+			setContent(document.getElementById('total_order'),document.createTextNode(total));
+			setContent(document.getElementById('total_ht'),document.createTextNode(ht));
+			setContent(document.getElementById('total_tva'),document.createTextNode(taxes));
+		}
+		
+		function update(index) {
+			updateSubTotal(index);
+			updateTotal();
+		}
+		
+		function review(batchId) {
+			/* alert(batchId); */
+			var form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", "review.xhtml");
+			form.setAttribute("target", "view");
+
+			var hiddenField = document.createElement("input"); 
+			hiddenField.setAttribute("batchId", batchId);
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+
+			window.open('review.xhtml', 'view');
+
+			form.submit();
+		}
+		
+	</script>
+</body>
+</html>

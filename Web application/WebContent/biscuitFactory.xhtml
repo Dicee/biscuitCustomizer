@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Créer mon biscuit personnalisé</title>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+	<f:loadBundle basename="bundle.messages" var="msg" />
+</h:head>
+<style>
+.hidden {
+	display: none;
+}
+.clickable:hover {
+	cursor:pointer;
+}
+</style>
+<body onload="onload()">
+	<canvas id="QR_code_canvas" class="hidden"></canvas>
+	<ui:include src="WEB-INF/header.xhtml" />
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="col-xs-3">
+					<h:form id="form" styleClass="form-inline">
+						<h:messages globalOnly="true" escape="false" infoClass="info" />
+						<hr />
+						<h4 class="text-center">Nos recettes</h4>
+						<hr />
+						<h:selectOneMenu value="#{biscuitFactoryBean.biscuitRef}" styleClass="form-control">
+							<f:selectItems value="#{biscuitFactoryBean.biscuits}" var="biscuit" itemLabel="#{biscuit.name}"
+								itemValue="#{biscuit.ref}" />
+							<f:ajax listener="#{biscuitFactoryBean.updateBiscuit}" render="ref edge xTop yTop" />
+						</h:selectOneMenu>
+						<h:inputText id="ref" value="#{biscuitFactoryBean.selectedBiscuit.ref}" styleClass="hidden" />
+						<h:inputText id="edge" value="#{biscuitFactoryBean.selectedBiscuit.edgeLength}" styleClass="hidden" />
+						<h:inputText id="xTop" value="#{biscuitFactoryBean.selectedBiscuit.xTop}" styleClass="hidden" />
+						<h:inputText id="yTop" value="#{biscuitFactoryBean.selectedBiscuit.yTop}" styleClass="hidden" />
+						<hr />
+						<h4 class="text-center">Personnalisation</h4>
+						<hr />
+						<input type="text" id="numberOfObjects" value="0" name="numberOfObjects" class="hidden" /> 
+						<div id="container" class="img-responsive center-block" style="height: 233px; width: 236px"></div>
+						<br />
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="button" class="btn btn-danger btn-block" onclick="addObject(TEXT_MODE)">
+									<span class="glyphicon glyphicon-plus-sign"></span> Texte
+								</button>
+							</div>
+							<div class="col-lg-6">
+								<button type="button" class="btn btn-danger btn-block" onclick="addObject(QRCODE_MODE)">
+									<span class="glyphicon glyphicon-plus-sign"></span> QR Code
+								</button>
+							</div>
+						</div>
+						<br />
+						<div id="formDiv"></div>
+						<br />
+						<button type="button" class="btn btn-danger btn-block" onclick="preview()">Prévisualiser</button>
+						<hr />
+						<h4 class="text-center">Quantité</h4>
+						<hr />
+						<div class="row">
+							<div class="form-group col-xs-12">
+								<h:inputText value="#{biscuitFactoryBean.batch.qt}" styleClass="form-control" id="qt"
+									converter="javax.faces.Integer" converterMessage="#{msg.invalidIntegerFormat}" required="true"
+									requiredMessage="#{msg['form.required']}">
+									<f:ajax event="blur" execute="qt" render="qtMsg" />
+									<f:validator validatorId="qtValidator" />
+								</h:inputText>
+							</div>
+							<h:message id="qtMsg" for="qt" errorClass="error" />
+						</div>
+						<hr />
+						<div class="row">
+							<div class="form-group col-xs-12">
+								<h:commandButton action="#{biscuitFactoryBean.submit}" styleClass="btn btn-danger btn-block"
+									value="Ajouter au panier" />
+							</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<div class="span9">
+			<br />
+			<h3 class="text-center">Prévisualisation</h3>
+			<div id="render_container"></div>
+			<div class="row">
+  				<div class="col-lg-2">
+					<button id="playpause" type="button" class="btn btn-danger btn-block" onclick="manageRotation()">
+						<span id="pause" class="glyphicon glyphicon-pause"></span> Pause
+					</button>
+				</div>
+  				<div class="col-lg-2">
+					<button id="reinit" type="button" class="btn btn-danger btn-block" onclick="reinit()">
+						<span class="glyphicon glyphicon-repeat"></span> Réinitialiser
+					</button>
+				</div>
+			</div>
+			<canvas id="texture_canvas" class="hidden"></canvas>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<ui:include src="WEB-INF/footer.xhtml" />
+	<ui:include src="WEB-INF/biscuitFactoryIncludes.xhtml" />
+</body>
+</html>

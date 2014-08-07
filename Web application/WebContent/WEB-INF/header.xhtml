@@ -1,0 +1,42 @@
+<ui:composition lang="fr" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<div class="brand">Poult Tailor</div>
+	<div class="address-bar">Le biscuit sur mesure pour tous vos évènements</div>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">Poult Tailor</a>
+			</div>
+			<h:form>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav" style="font-size:0.95em">
+					<li><a href="index.xhtml">Accueil</a></li>
+					<li><a href="biscuitFactory.xhtml">Créer mon biscuit</a></li>
+					<li><a href="cart.xhtml">Mon panier</a></li>
+    	 			<h:panelGroup rendered="#{!sessionBean.connected}">
+						<li><a href="signin.xhtml">Connexion</a></li>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{sessionBean.connected}">
+						<li>
+							<h:link value="Mon compte" outcome="addresses.xhtml" style="display:inline-block">
+								<f:param name="active" value="info"/>
+							</h:link>
+						</li>
+						<li><h:commandLink value="Déconnexion" action="#{sessionBean.disconnect}" style="display:inline-block"/></li>
+					</h:panelGroup>			
+				</ul>
+			</div>
+			</h:form>
+		</div>
+	</nav>
+</ui:composition>

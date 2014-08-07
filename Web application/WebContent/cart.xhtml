@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Mon panier</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/custom.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>	
+</h:head>
+<body onload="init()">
+	<ui:include src="WEB-INF/header.xhtml" />
+    <div class="container">
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr />
+                    <h2 class="intro-text text-center">Mon panier</h2>
+                    <hr />
+                </div>
+                <div class="col-md-12 col-sm-12 text-left">
+                	<h:form id="form">
+                	<h:messages globalOnly="true" escape="false" errorClass="error" infoClass="info"/>
+					<table class="table table-striped">
+						<tr>
+							<td>Produit</td>
+							<td>Quantité</td>
+							<td>Prix unitaire</td>
+							<td>Prix du lot</td>
+							<td></td>
+						</tr>
+						<ui:repeat id="batches" var="batch" value="#{sessionBean.order.batches}" varStatus="status">
+							<tr>
+								<td><h:outputText value="#{batch.biscuit.name}" styleClass="itemName"/></td>
+								<td>
+									<input type="button" value="-" onClick="inc(-1,#{status.index})"/>
+									<h:inputText id="qt" value="#{batch.qt}" styleClass="quantity" onchange="update(#{status.index})"/>
+									<input type="button" value="+" onClick="inc(1,#{status.index})"/>
+								</td>
+								<td><span class="price"><h:outputText id="price" value="#{batch.biscuit.price}"/> €</span></td>
+								<td><span class="price"><h:outputText id="total_price" value=""/> €</span></td>
+								<!-- <span id="total_price" class="total_price"> -->
+								<td>
+									<h:commandLink action="#{sessionBean.removeBatch}" styleClass="itemName" value="X">
+										<f:param name="index" value="#{status.index}"/>
+									</h:commandLink>
+								</td>
+							</tr>
+						</ui:repeat>
+						<tr>
+							<td></td>
+							<td>Total hors taxes : <span class="price"><span id="total_ht"></span>€</span></td>
+							<td>TVA (20 %) : <span class="price"><span id="total_tva"></span>€</span></td>
+							<td>Total :</td>
+							<td><span class="price"><span id="total_order"></span>€</span></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><h:commandButton action="#{sessionBean.order}" styleClass="form-control" value="Commander"/></td>
+ 						</tr>
+					</table>
+					</h:form>
+				</div>
+            </div>
+        </div>
+    </div>
+	<ui:include src="WEB-INF/footer.xhtml"/>
+	<script type="text/javascript">
+		function init() {
+			var i  = 0;
+			while (document.getElementById('form:batches:' + i + ':price')) 
+				updateSubTotal(i++);
+			updateTotal();
+		}
+	
+		function setContent(span,node) {
+			while (span.firstChild)
+				span.removeChild(span.firstChild);
+			span.appendChild(node);
+		}
+	
+		function inc(increment,index) {
+			qt    = document.getElementById('form:batches:' + index + ':qt');
+			value = parseInt(qt.value);
+			if (value + increment > 0)
+				qt.value = value + increment;
+			update(index);
+		}
+	
+		function updateSubTotal(index) {
+			var totalPrice;
+			totalSpan = document.getElementById('form:batches:' + index + ':total_price');
+			qtField   = document.getElementById('form:batches:' + index + ':qt');
+			
+			try {
+				qt = parseInt(qtField.value);
+				//Weird ? Well... there was an XHTML error otherwise !
+				if (!(qt > 0)) 
+					throw "Negative quantity";
+				
+				qtField.lastValue = qt;
+				unitPrice         = parseFloat(document.getElementById('form:batches:' + index + ':price').innerHTML);
+				totalPrice        = (qt * unitPrice).toFixed(2);					
+			} catch (e) {
+				totalPrice        = parseFloat(totalSpan.lastValue).toFixed(2);
+				qtField.value     = qtField.lastValue;
+			}
+			setContent(totalSpan,document.createTextNode(totalPrice));
+			totalSpan.lastValue   = totalPrice;
+		}
+		
+		function updateTotal() {
+			//Compute the total price of the order
+			var total = 0;
+			var i     = 0;
+			var price = document.getElementById('form:batches:' + i + ':total_price');
+			while (price) {
+				total += parseFloat(price.innerHTML);
+				price  = document.getElementById('form:batches:' + (++i) + ':total_price');
+			}
+			total = total.toFixed(2);
+			ht    = (total / 1.2).toFixed(2);
+			taxes = (total - ht).toFixed(2);
+			setContent(document.getElementById('total_order'),document.createTextNode(total));
+			setContent(document.getElementById('total_ht'),document.createTextNode(ht));
+			setContent(document.getElementById('total_tva'),document.createTextNode(taxes));
+		}
+		
+		function update(index) {
+			updateSubTotal(index);
+			updateTotal();
+		}
+	</script>
+</body>
+</html>

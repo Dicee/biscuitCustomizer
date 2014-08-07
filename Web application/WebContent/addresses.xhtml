@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Mon compte</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+	<h:outputStylesheet library="default" name="css/business-casual.css" />
+	<h:outputStylesheet library="default" name="css/basic.css" />
+	<f:loadBundle basename="bundle.messages" var="msg" />
+</h:head>
+<body>
+	<ui:include src="WEB-INF/header.xhtml"/>
+    <div class="container-fluid">
+    	<div class="row-fluid">
+    		<ui:include src="WEB-INF/accountOptions.xhtml"/>
+            <h:form>
+    		<div class="span9">
+    			<h:messages globalOnly="true" escape="false" infoClass="info"/>
+            	<div class="form-group col-lg-6">
+					<h:selectOneMenu value="#{accountBean.selectedAddress.id}" converter="javax.faces.Long">
+						<f:selectItems value="#{accountBean.addresses}" var="address" itemLabel="#{address.label}" itemValue="#{address.id}"/>
+    					<f:ajax listener="#{accountBean.updateAddress}" render="label nom prenom voie raisonSociale ville codePostal"/>
+					</h:selectOneMenu>
+				</div>
+    			<div class="col-xs-9">
+                        <div class="row">
+							<div class="form-group col-lg-4">
+                                <label>Libellé de l'adresse</label>
+                                <h:inputText id="label" value="#{accountBean.selectedAddress.label}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="labelMessage" />
+								</h:inputText>
+								<h:message id="labelMessage" for="label" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Nom</label>
+                                <h:inputText id="nom" value="#{accountBean.selectedAddress.nom}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="nomMessage" />
+								</h:inputText>
+								<h:message id="nomMessage" for="nom" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Prénom</label>
+                                <h:inputText id="prenom" value="#{accountBean.selectedAddress.prenom}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="prenomMessage" />
+								</h:inputText>
+								<h:message id="prenomMessage" for="prenom" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>Voie</label>
+                                <h:inputTextarea id="voie" value="#{accountBean.selectedAddress.voie}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="voieMessage" />
+								</h:inputTextarea>
+								<h:message id="voieMessage" for="voie" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Raison sociale</label>
+                                <h:inputText id="raisonSociale" value="#{accountBean.selectedAddress.raisonSociale}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="raisonSocialeMessage" />
+								</h:inputText>
+								<h:message id="raisonSocialeMessage" for="raisonSociale" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Ville</label>
+                                <h:inputText id="ville" value="#{accountBean.selectedAddress.ville}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="villeMessage" />
+								</h:inputText>
+								<h:message id="villeMessage" for="ville" errorClass="error" />
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Code postal</label>
+                                <h:inputText id="codePostal" value="#{accountBean.selectedAddress.codePostal}" styleClass="form-control"
+                                	required="true" requiredMessage="#{msg['form.required']}">
+                                	<f:ajax event="blur" render="codePostalMessage" />
+								</h:inputText>
+								<h:message id="codePostalMessage" for="codePostal" errorClass="error" />
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-lg-12">
+                            	<h:commandButton action="#{accountBean.editAddress}" value="Modifier mes informations" styleClass="btn btn-default">
+                            		<f:ajax execute="@form" render="@form" />
+                            	</h:commandButton>
+                            	<h:commandLink action="createAddress.xhtml" value="Nouvelle adresse" styleClass="btn btn-default"/>
+                            </div>
+                        </div>
+                </div>
+    		</div>
+            </h:form>
+    		<div class="clearfix"></div>
+    	</div>
+    </div>
+	<ui:include src="WEB-INF/footer.xhtml"/>
+</body>
+</html>
