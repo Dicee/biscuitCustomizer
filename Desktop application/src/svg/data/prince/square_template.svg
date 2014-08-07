@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="250mm" width="370mm">
+  <line x1="5mm" y1="5mm" x2="5mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="65mm" y1="5mm" x2="65mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="125mm" y1="5mm" x2="125mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="185mm" y1="5mm" x2="185mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="245mm" y1="5mm" x2="245mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="305mm" y1="5mm" x2="305mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="365mm" y1="5mm" x2="365mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="425mm" y1="5mm" x2="425mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="365mm" y1="5mm" x2="365mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+
+
+  <line x1="5mm" y1="5mm" x2="365mm" y2="5mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="5mm" y1="65mm" x2="365mm" y2="65mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="5mm" y1="125mm" x2="365mm" y2="125mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="5mm" y1="185mm" x2="365mm" y2="185mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+  <line x1="5mm" y1="245mm" x2="365mm" y2="245mm" style="stroke:rgb(0,0,0);stroke-width:1mm" />
+</svg> 

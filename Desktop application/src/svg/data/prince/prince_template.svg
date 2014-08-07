@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="265mm" width="385mm">
+
+<circle cx="35mm" cy="35mm"  r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="35mm" cy="100mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="35mm" cy="165mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="35mm" cy="230mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+
+<circle cx="100mm" cy="35mm"  r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="100mm" cy="100mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="100mm" cy="165mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="100mm" cy="230mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+
+<circle cx="165mm" cy="35mm"  r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="165mm" cy="100mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="165mm" cy="165mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="165mm" cy="230mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+
+<circle cx="230mm" cy="35mm"  r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="230mm" cy="100mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="230mm" cy="165mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="230mm" cy="230mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+
+<circle cx="295mm" cy="35mm"  r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="295mm" cy="100mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="295mm" cy="165mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+<circle cx="295mm" cy="230mm" r="30mm" stroke="black" stroke-width="1mm" fill="none" />
+</svg> 
+
