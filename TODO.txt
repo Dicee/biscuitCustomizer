@@ -1,0 +1,22 @@
+﻿()? => optionnel
+()! => prioritaire
+()G => Gabriel
+-----------------------------------
+- (générer les templates à partir d'une liste de Customization)!				DONE
+- (débugguer les commandes)!													DONE
+- (Payer une pizza à chacun)G   												DONE
+- améliorer la caméra															DONE
+- (débugguer le détail des commandes dans Mon Compte)! 							DONE
+- (ajouter le choix de la police)?												CANCELED
+- (ajouter les images)?															CANCELED
+- proposer une interface administrateur de gestion des commandes				DONE
+- (setter l'id de la commande avant sa validation)!								DONE
+- (rajouter un visuel de la customisation dans le détail des commandes)!
+- (rajouter le détail des customisations dans l'interface de gestion)!			DONE
+- (rajouter un filtre par nom/prénom dans l'interface de gestion)!				DONE
+- setter les commandes à "Prête à livrer" si l'impression s'est bien déroulée	CANCELED
+- débugger le select dans la page d'adresses									CANCELED
+- rajouter une page ou un message pour une commande réussie						DONE
+- (faire une synthèse / guide utilisateur)G!
+- (commander un nouveau mesh au turc)G!											DONE
+- empêcher de faire une commande vide											DONE
