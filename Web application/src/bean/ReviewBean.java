@@ -23,7 +23,8 @@ public class ReviewBean {
 		Map<String,String> 	params 	= FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		try {
 			long id = Long.parseLong(params.get("id"));
-			batch 	= ejb.find(Batch.class, id);	
+			batch 	= ejb.find(Batch.class, id);
+			System.out.println(batch.getCustomizations());
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}

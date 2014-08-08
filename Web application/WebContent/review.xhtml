@@ -14,24 +14,50 @@
 .hidden {
 	display: none;
 }
+
 </style>
 <body>
 	<ui:include src="WEB-INF/header.xhtml" />
-	
-	<div class="container">
+	<h:form id="form">
 		<ui:repeat id="customs" var="custom" value="#{reviewBean.batch.customizations}" varStatus="status">
-			
-			<h:outputText id="x#{status.index}" value="#{custom.x}" styleClass="hidden"/>
-			<h:outputText id="y#{status.index}" value="#{custom.y}" styleClass="hidden"/>
-			<h:outputText id="size#{status.index}" value="#{custom.size}" styleClass="hidden"/>
-			<h:outputText id="mode#{status.index}" value="#{custom.mode}" styleClass="hidden"/>
+			<h:inputHidden id="x#{status.index}" value="#{custom.x}" />
+			<h:inputHidden id="y#{status.index}" value="#{custom.y}" />
+			<h:inputHidden id="mode#{status.index}" value="#{custom.mode}" />
+			<h:inputHidden id="custom_text#{status.index}" value="#{custom.data}" />
+			<h:inputHidden id="size#{status.index}" value="#{custom.size}" />
 		</ui:repeat>
-	</div>
-
-	<ui:include src="WEB-INF/footer.xhtml"/>
-	
-	<script> </script>
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<script src="js/customjs.js"></script>
+		<h:inputHidden id="ref" value="#{reviewBean.batch.biscuit.ref}" />
+		<h:inputHidden id="edge" value="#{reviewBean.batch.biscuit.edgeLength}" />
+	</h:form>
+	<div id="container" style="height: 233px; width: 236px; margin: 0 auto;"></div>
+	<ui:include src="WEB-INF/footer.xhtml" />
+	<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+	<script src="resources/default/js/biscuitFactory/2dpreview.js"></script>
+	<script>
+		function initLayer() {
+			addNext(0);
+		}
+		
+		function addNext(id) {
+			console.log('addNext',id);
+			var node = document.getElementById('form:customs:' + id + ':x');
+			if (node != null) {
+				var x = getProperty('x',id);
+				var y = getProperty('y',id);
+				if (getProperty('mode',id) == QRCODE_MODE)
+					createQRCodeByPos(false,x,y,function() { addNext(id + 1); });
+				else {                                      
+					createTextByPos(false,x,y);
+					addNext(id + 1);
+				}
+			} else
+				layer.draw();
+		}
+		
+		function getProperty(prop,id) {
+			console.log(prop + id);
+			return document.getElementById('form:customs:' + id + ':' + prop).value;
+		}
+	</script>
 </body>
 </html>
