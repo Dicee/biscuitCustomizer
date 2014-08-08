@@ -32,7 +32,6 @@ function init() {
 				color : 0xe1e1e1
 			}));
 
-	//plane.rotation.x			 = -Math.Pi/4*4;
 	plane.position.z             = 0;
 	plane.name                   = 'plane';
 	plane.receiveShadow          = true;
@@ -40,7 +39,6 @@ function init() {
 	
 //	var axisHelper               = new THREE.AxisHelper(50);
 //	scene.add(axisHelper);
-	
 
 	topLight                     = new THREE.DirectionalLight(0xffffff, 1);
 	topLight.position.set(20, 10, 50);
@@ -51,8 +49,8 @@ function init() {
 	topLight.shadowCameraLeft    = -100;
 	topLight.shadowCameraTop     = 100;
 	topLight.shadowCameraBottom  = -100;
-	topLight.shadowCameraNear 	= 1;
-	topLight.shadowCameraFar 	= 100;
+	topLight.shadowCameraNear 	 = 1;
+	topLight.shadowCameraFar 	 = 100;
 
 	scene.add(topLight);
 
@@ -71,10 +69,9 @@ function init() {
 }
 
 function loadObject() {
-	if (objectName != null) 
-		scene.remove(scene.getObjectByName(objectName));
+	if (biscuit != null) 
+		scene.remove(biscuit);
 	
-	objectName  = document.getElementById('form:ref').value;
 	var loader  = new THREE.ImageLoader(manager);
 	var texture = new THREE.Texture();
 	loader.load(document.getElementById('texture_canvas').toDataURL('image/png'), function(image) {	
@@ -92,13 +89,11 @@ function loadObject() {
 		});
 		object.position.z = 25;
 		object.name       = objectName;
-		
 		biscuit 		  = object;		
 		scene.add(biscuit);
-//		scene.add(object);
 		
-		rotate 		= true;
-		busy 		= false;
+		rotate = true;
+		busy   = false;
 	});
 }
 
@@ -156,14 +151,14 @@ function animate() {
 	var name           = document.getElementById('form:ref').value;
 	var objectChanged  = name != objectName;
 	pendingChange      = pendingChange || objectChanged; 
-	
 	//We update the render parameters values from the user interface
-	objectName = name;
 	var now    = new Date().getTime();
 	
 	if (objectChanged)
 		lastUpdate = now;
 
+	objectName = name;
+	
 	if (pendingChange) { 
 		if (now - lastUpdate > 800 && !busy) {
 			busy          = true;

@@ -29,7 +29,8 @@
 						<hr />
 						<h4 class="text-center">Nos recettes</h4>
 						<hr />
-						<h:selectOneMenu value="#{biscuitFactoryBean.biscuitRef}" styleClass="form-control">
+						<h:selectOneMenu value="#{biscuitFactoryBean.biscuitRef}" styleClass="form-control" 
+							onchange="destroyForm(); createStage();">
 							<f:selectItems value="#{biscuitFactoryBean.biscuits}" var="biscuit" itemLabel="#{biscuit.name}"
 								itemValue="#{biscuit.ref}" />
 							<f:ajax listener="#{biscuitFactoryBean.updateBiscuit}" render="ref edge xTop yTop" />
@@ -42,7 +43,7 @@
 						<h4 class="text-center">Personnalisation</h4>
 						<hr />
 						<input type="text" id="numberOfObjects" value="0" name="numberOfObjects" class="hidden" /> 
-						<div id="container" class="img-responsive center-block" style="height: 233px; width: 236px"></div>
+						<div id="container" class="img-responsive center-block" style="margin: 0 auto"></div>
 						<br />
 						<div class="row">
 							<div class="col-lg-6">
@@ -105,6 +106,7 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
+	<div id="imageDiv"></div>
 	<ui:include src="WEB-INF/footer.xhtml" />
 	<ui:include src="WEB-INF/biscuitFactoryIncludes.xhtml" />
 </body>

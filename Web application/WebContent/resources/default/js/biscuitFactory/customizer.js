@@ -1,19 +1,21 @@
 ///////////////////// Global constants /////////////////
 var nFontSizeOptions = 5;
 var nScaleOptions    = 6;
+var imageDiv         = document.getElementById('imageDiv');
 ////////////////////////////////////////////////////////
 
-var rect = new Kinetic.Rect({
-	x : minX,
-	y : minY,
-	width : edgeX,
-	height : edgeY,
-	fillAlpha : 0,
-	stroke : 'red',
-	strokeWidth : 1
-});
-layer.add(rect);
-layer.draw();
+function initLayer() {
+	var rect = new Kinetic.Rect({
+		x : minX,
+		y : minY,
+		width : edgeX,
+		height : edgeY,
+		fillAlpha : 0,
+		stroke : 'red',
+		strokeWidth : 1
+	});
+	layer.add(rect);
+}
 
 function preview() {
 	pendingChange = true;
@@ -56,8 +58,8 @@ function updateObject(i) {
 				QRCode.destroy();
 				layer.add(newQRCode);
 				objects[i] = newQRCode;
-				document.body.removeChild(document.getElementById('img' + i));
-				document.body.appendChild(newQRCodeImg);
+				imageDiv.removeChild(document.getElementById('img' + i));
+				imageDiv.appendChild(newQRCodeImg);
 				layer.draw();
 			} else 
 				alert("Votre QR code est trop grand pour être affiché dans la zone d'édition");
@@ -96,7 +98,7 @@ function deleteObject(child) {
 	// delete the HTML elements
 	document.getElementById("formDiv").removeChild(document.getElementById("object" + id));
 	var img = document.getElementById("img" + id);
-	if (img) document.body.removeChild(img);
+	if (img) imageDiv.removeChild(img);
 		
 	// delete the Kinetic element
 	objects[id].destroy();
@@ -151,11 +153,26 @@ function addObject(mode) {
 		var newObject       = document.createElement("div");
 		newObject.id        = "object" + objectNumber;
 		newObject.innerHTML = domString;
-		var formdiv = document.getElementById('formDiv');
+		var formdiv         = document.getElementById('formDiv');
 		formdiv.appendChild(newObject);
 
 		if (mode == TEXT_MODE) createText(true);
 		else                   createQRCode(true);
 		layer.draw();
 	}
+}
+
+function destroyForm() {
+	var noo   = document.getElementById("numberOfObjects");
+	noo.value = 0;
+	
+//	var children = document.getElementById('formDiv').childNodes;
+	/*var length   = children.length;
+	for (var i = 0, child = children.item(i) ; i < length ; child = children.item(++i)) 
+		formDiv.removeChild(child);*/
+	function removeAllChildren(node) {
+		while (node.hasChildNodes()) node.removeChild(node.lastChild);
+	}
+	removeAllChildren(document.getElementById('formDiv'));
+	removeAllChildren(imageDiv);
 }

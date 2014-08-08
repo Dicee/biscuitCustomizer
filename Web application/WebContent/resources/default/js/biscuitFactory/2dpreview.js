@@ -2,46 +2,68 @@
 var QRCODE_MODE      = 0;
 var TEXT_MODE 	     = 1;
 ////////////////////////////////////////////////////////
-
 var objectNumber = 0;
 var objects = [];
-var layer = new Kinetic.Layer();
-var stage = new Kinetic.Stage({
-	container : 'container',
-	width : styleToInt(document.getElementById('container').style.width),
-	height : styleToInt(document.getElementById('container').style.height)
-});
+var layer ;
+var stage ;
 
-var edgeX = parseInt(document.getElementById('form:edge').value);
-var edgeY = edgeX;
-var minX = (stage.width() - edgeX) / 2;
-var minY = (stage.height() - edgeY) / 2;
-var maxX = minX + edgeX;
-var maxY = minY + edgeY;
+var edgeX ;
+var edgeY ;
+var minX ;
+var minY ;
+var maxX ;
+var maxY ;
 
-var image;
-var imageObj = new Image();
-imageObj.src = "resources/default/textures/" + document.getElementById('form:ref').value + "2D.png";
+createStage();
 
-imageObj.onload = function() {
-	image = new Kinetic.Image({
-		x : 0,
-		y : 0,
-		image : imageObj,
-		width : stage.width(),
-		height : stage.height()
-	});
-	layer.add(image);
-	if (initLayer != null) initLayer();
-	layer.draw();
-};
-layer.draw();
+function createStage() {
+	var globalTimeout;
 
-stage.add(layer);
+	if (globalTimeout != null)
+		clearTimeout(globalTimeout);
+	globalTimeout = setTimeout(function() {
+		globalTimeout = null;
 
-function styleToInt(s) {
-	return parseInt(s.substring(0, s.length - 2));
+		var image;
+		imageObj        = new Image();
+		imageObj.src    = "resources/default/textures/" + document.getElementById('form:ref').value + "2D.png";
+		imageObj.onload = function() {
+			image = new Kinetic.Image({
+				x : 0,
+				y : 0,
+				image : imageObj,
+				width : imageObj.width,
+				height : imageObj.height
+			});
+			//Initializations
+			objectNumber = 0;
+			objects      = [];
+			layer        = new Kinetic.Layer();
+			stage        = new Kinetic.Stage({
+				container : 'container',
+				width : imageObj.width,
+				height : imageObj.height
+			});
+			layer.add(image);
+			layer.draw();
+
+			edgeX = parseInt(document.getElementById('form:edge').value);
+			edgeY = edgeX;
+			minX  = (stage.width() - edgeX) / 2;
+			minY  = (stage.height() - edgeY) / 2;
+			maxX  = minX + edgeX;
+			maxY  = minY + edgeY;
+
+			initLayer();
+			stage.add(layer);
+			layer.draw();
+		};
+	},500);
 }
+
+function initLayer() { }
+
+
 
 function loadQRCodeByPos(id,draggable,x,y,callback) {
 	var data      = getProperty('custom_text',id);
@@ -122,19 +144,21 @@ function loadQRCode(id,draggable,callback) {
 function createQRCodeByPos(draggable,x,y,callback) {
 	loadQRCodeByPos(objectNumber,draggable,x,y,function(QRcode,QRcodeImg) {
 		objects[objectNumber++] = QRcode;
-		document.body.appendChild(QRcodeImg);
+		document.getElementById('imageDiv').appendChild(QRcodeImg);
 		layer.add(QRcode);
 		layer.draw();
-		callback();
+		if (callback != undefined)
+			callback();
 	});
 } 
 
 function createQRCode(draggable,callback) {
 	loadQRCode(objectNumber,draggable,function(QRcode,QRcodeImg) {
 		objects[objectNumber++] = QRcode;
-		document.body.appendChild(QRcodeImg);
+		document.getElementById('imageDiv').appendChild(QRcodeImg);
 		layer.add(QRcode);
 		layer.draw();
-		callback();
+		if (callback != undefined)
+			callback();
 	});
 }

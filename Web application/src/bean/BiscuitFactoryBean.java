@@ -5,6 +5,7 @@ import static java.lang.Integer.parseInt;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,8 @@ public class BiscuitFactoryBean implements Serializable {
 	
 	@PostConstruct
 	private void init() {
+		System.out.println(getBiscuits().get(0).getRef());
+		System.out.println(getBiscuits().get(1).getRef());
 		selectedBiscuit = getBiscuits().isEmpty() ? null : getBiscuits().get(0);
 	}
 	
@@ -89,8 +92,10 @@ public class BiscuitFactoryBean implements Serializable {
 	}
 	
 	public List<Biscuit> getBiscuits() {
-		if (biscuits == null)
+		if (biscuits == null) {
 			biscuits = ejb.retrieveAll(Biscuit.class);
+//			Collections.reverse(biscuits);
+		}
 		return biscuits;
 	}
 	
