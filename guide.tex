@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+
+\title{Guide de l'utilisateur}
+
+\author{Gabriel Guiral}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Durant le stage, nous avons eu deux objectifs distincts. D'une part l'étude de la découpe et de la gravure laser sur biscuit et d'autre part la création d'un site internet permettent de personnaliser en ligne son biscuit.
+Nous avons ensuite dû connecter les deux projets pour formaliser un prototype de chaîne de production.
+
+
+\section{Étude de l'effet du laser sur le biscuit}
+
+Nous avons pu travailler avec une graveuse laser EPILOG 35W au Fablab de Toulouse.
+Nous avons essayé d'une part de découper sans brûler le bord du biscuit (aussi bien à la vue qu'à l'odorat) et d'autre part de graver un QR code ou un texte dans le biscuit sans brûler là aussi.
+
+\subsection{Découpe Laser}
+
+Pour ces tests, nous avons travaillé avec plusieurs types de biscuits allant de 3 à 7 millimètres d'épaisseur de biscuits sans confitures ou autre ajout.
+Nos trois principales batteries de tests ont été réalisées sur les "petits fourres", "fourres" et tartavero.
+Sur les fourres et la tartavero il nous a été impossible de graver sans noircir (et donc rendre le biscuit non mangeable) car le laser doit être réglé avec une certaine puissance pour découper le biscuit ; puissance qui brûle obligatoirement le biscuit.
+Sur les petits fourres, nous avons reussi à decouper sans bruler visuellement en passant très rapidement en dessous et au dessus du biscuit avec le laser. Cependant une faible odeur de brulé persiste et nous ne savons pas si ce produit est comestible. En effet, la machine servant à découper à peu près tout et n'importe quoi, nous ne pouvons manger les biscuits.
+
+
+\subsection{Gravure Laser}
+
+Très rapidement, les tests en gravure ont montré des résultats interessants. En effet, nous avons rapidement reussi soit à graver en brulant et donc à avoir un resultat sufisament contrasté pour pouvoir flasher (sûrement pas mangeable) soit à graver de manière douce pour obtenir un creusé important sans brulûre à remplir avec quelque chose qui apporte le contraste.
+Nous avons ensuite continué sur cette deuxième piste en tentant de mettre du chocolat dans les trous, à la main, cela n'a pas été possible par manque de précision de nos outils mais un rapide test avec un feutre noir a très vite montré que cette solution était envisageable.
+
+
+\section{Site de commande des biscuits personnalisés}
+
+Nous avons en réalité réalisé deux "sites", le premier destiné à la relation client - Groupe Poult pour personnaliser le biscuit (aussi appelé front office) et le second destiné aux responsables de traitement des commandes (aussi appelé back office)
+
+\subsection{Front Office}
+
+Nous avons conçu cette interface client-groupe poult comme un mini site de e-commerce. elle bénéficie en outre d'une page d'accueil où l'on peut s'inscrire et s'identifier et des fonctionnalités suivantes :
+
+\begin{enumerate}
+\item Interface de conception du biscuit personnalisé en 2D et 3D,
+\item Possibilité d'ajouter plusieurs produits au panier et de passer commande,
+\item Section mon compte qui permet de retrouver ses informations personnelles et tous les détails de ses précédentes commandes. 
+\end{enumerate}
+
+\subsubsection{Interface de personnalisation}
+
+Nous avons voulu pour cette page l'utilisation la plus simple possible. Il suffit donc de choisir son modèle de biscuit puis une photo 2D s'affiche en dessous, on place ensuite des textes ou QR codes sur ce dernier (5 au maximum) avec une certaine taille. Il suffit enfin de prévisualiser pour voir un biscuit très réaliste en 3D tourner sur lui même au milieu de la page.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{personnalisation.png}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+
+\subsubsection{Panier}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Mon_panier.png}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+\subsubsection{Récapitulatif des commandes}
+
+Nous sommes aussi allés au plus simple pour cet affichage mais il suffit de cliquer sur une commande pour avoir les differents détails de cette commande. Il est aussi possible en cliquant sur un détail d'une commande (une personnalisation spécifique de biscuit) d'en voir une petite image.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{R_capitulatif_des_commandes.png}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+\subsection{Back Office}
+
+Le back office pour gérer les commandes prends la forme d'une application desktop. C'est à dire qu'il s'agit 'un petit programme que l'on peut lancer depuis le bureau de l'ordinateur.
+En le lançant, on arrive sur l'écran d'accueil qui recense toutes les commandes dans l'ordre chronologique :
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Page_principale.PNG}
+\caption{\label{fig:tp1-exo1}Page principale.}
+\end{figure}
+
+On peut ensuite faire une recherche par nom/prénom pour ne garder que les commandes qui nous intéressent. Dans la capture suivante on filtre les noms commencant par cou
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Filtrage.PNG}
+\caption{\label{fig:tp1-exo1}Filtrage par nom.}
+\end{figure}
+
+Depuis l'accueil (filtré ou non) on peut réaliser deux actions : le première correspond à visionner le détail d'une commande. Pour cela il suffit de cliquer sur une ligne puis de cliquer sur "voir le détail". On arrive alors sur la page suivante dans laquelle on a accès à chaque lot de chaque type de biscuit commandé et aux personnalisations de chaque lot dans les moindre détails. À noter que les données x et y correspondent au haut gauche de chaque item de personnalisation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{D_tail_des_lots_et_personnalisations.PNG}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+La deuxième action réalisable depuis l'accueil comme on le voit ci-dessous est l'impression de la sélection. Cette fonction récupère la ou les lignes sélectionnées et génère un dossier enregistrable sur l'ordinateur contenant les fichiers à imprimer à la graveuse.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Page_principale.PNG}
+\caption{\label{fig:tp1-exo1}Page principale.}
+\end{figure}
+
+Dans cet exemple en générant les fichiers des commandes numéro 1, 3 et 5 (en maintenant la touche alt gr), on obtient le dossier suivant :
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Edition_des_templates.PNG}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+En cliquant ensuite sur le dossier désiré on a accès au fichier SVG dont la graeuse laser a besoin pour graver le biscuit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{Template_SVG.PNG}
+\caption{\label{fig:tp1-exo1}Interface de personnalisation.}
+\end{figure}
+
+
+\end{document}
