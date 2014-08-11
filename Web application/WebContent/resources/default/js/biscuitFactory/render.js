@@ -14,7 +14,7 @@ function init() {
 	camera.position.z = 70;
 	scene = new THREE.Scene();
 
-	var directionalLight = new THREE.DirectionalLight(0xffffff);
+	var directionalLight = new THREE.DirectionalLight(0xffffff,0.1);
 	directionalLight.position.set(20, 10, 50);
 	directionalLight.castShadow = true;
 	directionalLight.shadowDarkness = 0.3;
@@ -26,6 +26,19 @@ function init() {
 
 	scene.add(directionalLight);
 
+	topLight                     = new THREE.DirectionalLight(0xffffff, 1);
+	topLight.position.set(0, 0, 50);
+	topLight.castShadow          = true;
+	topLight.shadowDarkness      = 0.3;
+//	topLight.shadowCameraVisible = true;
+	topLight.shadowCameraRight   = 100;
+	topLight.shadowCameraLeft    = -100;
+	topLight.shadowCameraTop     = 100;
+	topLight.shadowCameraBottom  = -100;
+	topLight.shadowCameraNear 	 = 1;
+	topLight.shadowCameraFar 	 = 100;
+	
+	scene.add(topLight);
 	
 	plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200),
 			new THREE.MeshBasicMaterial({
@@ -40,19 +53,6 @@ function init() {
 //	var axisHelper               = new THREE.AxisHelper(50);
 //	scene.add(axisHelper);
 
-	topLight                     = new THREE.DirectionalLight(0xffffff, 1);
-	topLight.position.set(20, 10, 50);
-	topLight.castShadow          = true;
-	topLight.shadowDarkness      = 0.3;
-//	topLight.shadowCameraVisible = true;
-	topLight.shadowCameraRight   = 100;
-	topLight.shadowCameraLeft    = -100;
-	topLight.shadowCameraTop     = 100;
-	topLight.shadowCameraBottom  = -100;
-	topLight.shadowCameraNear 	 = 1;
-	topLight.shadowCameraFar 	 = 100;
-
-	scene.add(topLight);
 
 	var container = document.getElementById('render_container');
 	renderer = new THREE.WebGLRenderer();

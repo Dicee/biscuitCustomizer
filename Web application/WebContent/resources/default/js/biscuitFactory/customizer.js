@@ -166,10 +166,6 @@ function destroyForm() {
 	var noo   = document.getElementById("numberOfObjects");
 	noo.value = 0;
 	
-//	var children = document.getElementById('formDiv').childNodes;
-	/*var length   = children.length;
-	for (var i = 0, child = children.item(i) ; i < length ; child = children.item(++i)) 
-		formDiv.removeChild(child);*/
 	function removeAllChildren(node) {
 		while (node.hasChildNodes()) node.removeChild(node.lastChild);
 	}
