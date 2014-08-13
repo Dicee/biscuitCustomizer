@@ -27,16 +27,15 @@ function init() {
 	scene.add(directionalLight);
 
 	topLight                     = new THREE.DirectionalLight(0xffffff, 1);
-	topLight.position.set(0, 0, 50);
 	topLight.castShadow          = true;
 	topLight.shadowDarkness      = 0.3;
-//	topLight.shadowCameraVisible = true;
 	topLight.shadowCameraRight   = 100;
 	topLight.shadowCameraLeft    = -100;
 	topLight.shadowCameraTop     = 100;
 	topLight.shadowCameraBottom  = -100;
 	topLight.shadowCameraNear 	 = 1;
 	topLight.shadowCameraFar 	 = 100;
+	topLight.position.set(0, 0, 50);
 	
 	scene.add(topLight);
 	
@@ -49,10 +48,6 @@ function init() {
 	plane.name                   = 'plane';
 	plane.receiveShadow          = true;
 	scene.add(plane);
-	
-//	var axisHelper               = new THREE.AxisHelper(50);
-//	scene.add(axisHelper);
-
 
 	var container = document.getElementById('render_container');
 	renderer = new THREE.WebGLRenderer();
@@ -171,9 +166,8 @@ function animate() {
 	render();
 }
 
-var pauseStr	= '<span class="glyphicon glyphicon-pause" id="pause"></span> Pause';
-
-var playStr	= '<span class="glyphicon glyphicon-play" id="play"></span> Play';
+var pauseStr = '<span class="glyphicon glyphicon-pause" id="pause"></span> Pause';
+var playStr	 = '<span class="glyphicon glyphicon-play" id="play"></span> Play';
 
 function reinit() {
 	biscuit.rotation.y 	= 0;
@@ -181,19 +175,14 @@ function reinit() {
 	manageRotation();
 }
 
-
 function manageRotation() {
-	
 	document.getElementById("playpause").innerHTML = rotate ? playStr : pauseStr;	
 	rotate = !rotate;
 }
 
 function render() {
-	
-	if (rotate) {
+	if (rotate)
 		biscuit.rotation.y += 0.015;
-	}	
-	
 	renderer.render(scene, camera);		
 }
 

@@ -63,8 +63,6 @@ function createStage() {
 
 function initLayer() { }
 
-
-
 function loadQRCodeByPos(id,draggable,x,y,callback) {
 	var data      = getProperty('custom_text',id);
 	var size      = parseInt(getProperty('size',id));

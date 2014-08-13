@@ -28,7 +28,7 @@ function onload() {
 function updateObject(i) {
 	if (getProperty('mode', i) == TEXT_MODE) {
 		// TEXT MODE
-		var text = objects[i];
+		var text    = objects[i];
 		var oldText = text.text();
 		var oldFont = text.fontSize();
 		text.setText(getProperty('custom_text',i));
@@ -47,7 +47,7 @@ function updateObject(i) {
 		layer.draw();
 	} else {
 		// QR CODE MODE
-		var QRCode    = objects[i];
+		var QRCode = objects[i];
 		loadQRCode(i,true,function (newQRCode,newQRCodeImg) {
 			if (newQRCode.width() <= edgeX && newQRCode.height() <= edgeY) {
 				//Replace the object at a legal position if necessary
