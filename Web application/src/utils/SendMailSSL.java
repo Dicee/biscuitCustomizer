@@ -28,9 +28,9 @@ public class SendMailSSL {
 		try {
  
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("dcourtinot@gmail.com"));
+			message.setFrom(new InternetAddress("*****@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("dcourtinot@gmail.com"));
+					InternetAddress.parse("******@gmail.com"));
 			message.setSubject("Test");
 			message.setText("Petit test");
  
